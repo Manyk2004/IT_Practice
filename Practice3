@@ -1,0 +1,215 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(replaceVovels("apple"));
+        System.out.println(replaceVovels("Even if you did this task not by yourself, you have to understand every single line of code"));
+        System.out.println();
+
+        System.out.println(stringTransform("hello"));
+        System.out.println(stringTransform("bookkeeper"));
+        System.out.println();
+
+        System.out.println(doesBlockFit(1, 3, 5, 4, 5));
+        System.out.println(doesBlockFit(1, 8, 1, 1, 1));
+        System.out.println(doesBlockFit(1, 2, 2, 1, 1));
+        System.out.println();
+
+        System.out.println(numCheck(243));
+        System.out.println(numCheck(52));
+        System.out.println();
+
+        int[] arr1 = {1, -3, 2};
+        int[] arr2 = {2, 5, 2};
+        int[] arr3 = {1, -6, 9};
+        System.out.println(countRoots(arr1));
+        System.out.println(countRoots(arr2));
+        System.out.println(countRoots(arr3));
+        System.out.println();
+
+        String[][] arr11 = {{"Apple", "Shop1", "Shop2", "Shop3", "Shop4"}, {"Banana", "Shop2", "Shop3", "Shop4"},
+                {"Orange", "Shop1", "Shop3", "Shop4"}, {"Pear", "Shop2", "Shop4"}};
+        String[][] arr12 = {{"Fridge", "Shop2", "Shop3"}, {"Microwave", "Shop1", "Shop2", "Shop3", "Shop4"},
+                {"Laptop", "Shop3", "Shop4"}, {"Phone", "Shop1", "Shop2", "Shop3", "Shop4"}};
+        System.out.println(salesData(arr11));
+        System.out.println(salesData(arr12));
+        System.out.println();
+
+        System.out.println(validSplit("apple eagle egg goat"));
+        System.out.println(validSplit("cat dog goose fish"));
+        System.out.println();
+
+        int[] arr21 = {3, 1, 4, 2, 7, 5};
+        int[] arr22 = {1, 2, 3, 4, 5};
+        int[] arr23 = {1, 2, -6, 10, 3};
+        System.out.println(waveForm(arr21));
+        System.out.println(waveForm(arr22));
+        System.out.println(waveForm(arr23));
+        System.out.println();
+
+        System.out.println(commonVovel("Hello world"));
+        System.out.println(commonVovel("Actions speak louder than words"));
+        System.out.println();
+
+        int[][] arr31 = {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}, {5, 5, 5, 5, 5},
+                {7, 4, 3, 14, 2}, {1, 0 , 11, 10, 1}};
+        int[][] arr32 = {{6, 4, 19, 0, 0}, {81, 25, 3, 1, 17}, {48, 12, 60, 32, 14},
+                {91, 47, 16, 65, 217}, {5, 73 , 0, 4, 21}};
+        System.out.println(Arrays.deepToString(dataScience(arr31)));
+        System.out.println(Arrays.deepToString(dataScience(arr32)));
+        System.out.println();
+    }
+
+    public static String replaceVovels(String s) {
+        char[] str = s.toLowerCase().toCharArray();
+        String res = "";
+        for (int i = 0; i < str.length; i++) {
+            if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u' || str[i] == 'y')
+                str[i] = '*';
+            res += str[i];
+        }
+        return res;
+    }
+
+    public static String stringTransform(String s){
+        String new_s = "";
+        char[] str = s.toCharArray();
+        for (int i = 0; i < str.length; i++) {
+            if ((i + 1 < str.length) && (str[i] == str[i + 1]))  {
+                new_s += "Double" + s.substring(i, i + 1).toUpperCase();
+                i++;
+            }
+            else
+                new_s += str[i];
+        }
+        return new_s;
+    }
+
+    public static boolean doesBlockFit(int a, int b, int c, int w, int h){
+        boolean statement = false;
+        int[] arr1 = {a, b, c};
+        Arrays.sort(arr1);
+        int[] arr2 = {w, h};
+        Arrays.sort(arr2);
+        if ((arr1[0] <= arr2[0]) && (arr1[1] <= arr2[1]))
+            statement = true;
+        return statement;
+    }
+
+    public static boolean numCheck(int num){
+        boolean statement = false;
+        int quadSum = 0;
+        int num_ = num;
+        while (num_ > 1){
+            quadSum += (num_ % 10)^2;
+            num_ /= 10;
+        }
+        if ((quadSum + num) % 2 == 0)
+            statement = true;
+        return statement;
+    }
+
+    public static int countRoots(int[] arr){
+        int kol = 0;
+        int a = arr[0], b = arr[1], c = arr[2];
+        int D = b*b - (4 * a * c);
+        if (D > 0){
+            if (((b * (-1) + Math.sqrt(D)) / (2 * a)) % 1 == 0)
+                kol += 1;
+            if (((b * (-1) - Math.sqrt(D)) / (2 * a)) % 1 == 0)
+                kol += 1;
+        }
+        else if ((D == 0) && ((b * (-1) / (2 * a)) % 1 == 0))
+            kol += 1;
+        return kol;
+    }
+
+    public static ArrayList<String> salesData(String[][] s){
+        ArrayList <String> sales = new ArrayList<>();
+        int[] kol = new int[s.length];
+        for (int i = 0; i < s.length; i++)
+            kol[i] = s[i].length;
+        Arrays.sort(kol);
+        for (int i = 0; i < s.length; i++)
+            if (s[i].length == kol[kol.length - 1])
+                sales.add(s[i][0]);
+        return sales;
+    }
+
+    public static boolean validSplit(String s){
+        boolean statement = false;
+        int kol = 0;
+        char[] chars = s.toCharArray();
+        String[] s1 = s.split(" ");
+        int index = 0, l_index = 0;
+        for (int i = 0; i < s1.length - 1; i++) {
+            index = s.indexOf(" ", l_index);
+            l_index = index + 1;
+            if (chars[index - 1] == chars[index + 1])
+                kol ++;
+        }
+        if (kol == s1.length - 1)
+            statement = true;
+        return statement;
+    }
+
+    public static boolean waveForm(int[] arr){
+        boolean statement = false;
+        int kol = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (arr[0] < arr[1])
+                if (i % 2 == 0){
+                    if (arr[i] < arr[i + 1])
+                        kol++;
+            }
+                else{
+                    if (arr[i] > arr[i + 1])
+                        kol++;
+                }
+            if (arr[0] > arr[1])
+                if (i % 2 == 0) {
+                    if (arr[i] > arr[i + 1])
+                        kol++;
+                }
+                else{
+                    if (arr[i] < arr[i + 1])
+                        kol++;
+                }
+        }
+        if (kol == arr.length - 1)
+            statement = true;
+        return statement;
+    }
+
+    public static char commonVovel(String s){
+        char[] vovels = {'a', 'e', 'i', 'o', 'u', 'y'};
+        char[] str = s.toLowerCase().toCharArray();
+        int[] kol = {0, 0, 0, 0, 0, 0};
+        int max = 0, max_index = 0;
+        for (int i = 0; i < str.length; i++)
+            for (int j = 0; j < vovels.length; j++)
+                if (str[i] == vovels[j])
+                    kol[j] ++;
+        for (int i = 0; i < kol.length; i++) {
+            if (max < kol[i]){
+                max = kol[i];
+                max_index = i;
+            }
+        }
+        return vovels[max_index];
+    }
+
+    public static int[][] dataScience(int[][] arr){
+        int[] arr_ = new int[10];
+        for (int i = 0; i < arr.length; i++)
+            for (int j = 0; j < arr[i].length; j++)
+                if (i != j)
+                    arr_[j] += arr[i][j];
+        for (int i = 0; i < arr.length; i++)
+            for (int j = 0; j < arr[i].length; j++)
+                if (i == j)
+                    arr[i][j] = Math.round((float) arr_[j] / (arr.length - 1));
+        return arr;
+    }
+}
