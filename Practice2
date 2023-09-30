@@ -1,0 +1,174 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(duplicateChars("Donald"));
+        System.out.println(duplicateChars("orange"));
+        System.out.println();
+
+        System.out.println(getInitials("Ryan Gosling"));
+        System.out.println(getInitials("Barack Obama"));
+        System.out.println();
+
+        int[] array1 = {44, 32, 86, 19};
+        int[] array2 = {22, 50, 16, 63, 31, 55};
+        System.out.println(differenceEvenOdd(array1));
+        System.out.println(differenceEvenOdd(array2));
+        System.out.println();
+
+        int[] array11 = {1, 2, 3, 4, 5};
+        int[] array12 = {1, 2, 3, 4, 6};
+        System.out.println(equalToAvg(array11));
+        System.out.println(equalToAvg(array12));
+        System.out.println();
+
+        int[] array21 = {1, 2, 3};
+        int[] array22 = {3, 3, -2, 408, 3, 31};
+        System.out.println(indexMult(array21));
+        System.out.println(indexMult(array22));
+        System.out.println();
+
+        System.out.println(reverse("Hello World"));
+        System.out.println(reverse("The quick brown fox."));
+        System.out.println();
+
+        System.out.println(Tribonacci(7));
+        System.out.println(Tribonacci(11));
+        System.out.println();
+
+        System.out.println(pseudoHash(5));
+        System.out.println(pseudoHash(10));
+        System.out.println(pseudoHash(0));
+        System.out.println();
+
+        System.out.println(botHelper("Hello, I'm help the water, she helps me"));
+        System.out.println(botHelper("Two pepperoni pizzas please"));
+        System.out.println();
+
+        System.out.println(isAnagram("listen", "silent"));
+        System.out.println(isAnagram("eleven plus two", "two plus eleven"));
+        System.out.println(isAnagram("hello", "world"));
+        System.out.println();
+
+    }
+
+    public static boolean duplicateChars(String s){
+        String s1 = s.toLowerCase();
+        boolean statement = false;
+        for (int i = 0; i < s1.length(); i++){
+            for (int j = i + 1; j <s1.length(); j++){
+                if (s1.charAt(i) == s1.charAt(j)){
+                    statement = true;
+                    break;
+                }
+            }
+        }
+        return statement;
+    }
+
+    public static String getInitials(String s){
+        String initials = "";
+        for (int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if (Character.isUpperCase(c))
+                initials += c;
+        }
+        return initials;
+    }
+
+    public static int differenceEvenOdd(int[] arr){
+        int sum_1 = 0;
+        int sum_2 = 0;
+        int difference = 0;
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] % 2 == 0)
+                sum_2 += arr[i];
+            else
+                sum_1 += arr[i];
+        }
+        difference = Math.abs(sum_2 - sum_1);
+        return difference;
+    }
+
+    public static boolean equalToAvg(int[] arr){
+        boolean statement = false;
+        double sum = 0;
+        for (int i = 0; i < arr.length; i++)
+            sum += arr[i];
+        for (int i = 0; i < arr.length; i++){
+            if (arr[i] == sum/arr.length){
+                statement = true;
+                break;
+            }
+        }
+        return statement;
+    }
+
+    public static ArrayList indexMult(int[] input){
+        ArrayList<Integer> output = new ArrayList<Integer>();
+        for (int i = 0; i < input.length; i++)
+            output.add(input[i] * i);
+        return output;
+    }
+
+    public static String reverse(String s){
+        StringBuilder str = new StringBuilder(s);
+        return str.reverse().toString();
+    }
+
+    public static int Tribonacci(int num){
+        int number1 = 0, number2 = 0, number3 = 1, number4 = 1;
+        if (num < 5)
+            if (num < 3)
+                number4 = 0;
+        else {
+            for (int i = 4; i < num; i++) {
+                number1 = number2;
+                number2 = number3;
+                number3 = number4;
+                number4 = number1 + number2 + number3;
+            }
+        }
+        return number4;
+    }
+
+    public static String pseudoHash(int a){
+        String hash = "";
+        int num = 0;
+        String[] mass = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+        for (int i = 0; i < a; i++){
+            Random rand = new Random();
+            num = rand.nextInt(16);
+            hash += mass[num];
+        }
+        return hash;
+    }
+
+    public static String botHelper(String s1){
+        String[] s = s1.split(" ");
+        if (Arrays.asList(s).contains("help"))
+            return "Calling for a staff manager";
+        else
+            return "Keep waiting";
+    }
+
+    public static boolean isAnagram(String s1, String s2){
+        boolean statement = false;
+        int kol = 0;
+        if (s1.length() == s2.length()) {
+            for (int i = 0; i < s2.length(); i++) {
+                for (int j = 0; j < s1.length(); j++) {
+                    if (s1.charAt(j) == s2.charAt(i)){
+                        kol += 1;
+                        break;
+                    }
+                }
+            }
+        }
+        if ((kol == s1.length()) && (kol == s2.length()))
+            statement = true;
+        return statement;
+    }
+}
