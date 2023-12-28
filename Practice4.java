@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class Main {
+public class Practice4 {
     public static void main(String[] args) {
         System.out.println(nonRepeatable("abracadabra"));
         System.out.println(nonRepeatable("paparazzi"));
